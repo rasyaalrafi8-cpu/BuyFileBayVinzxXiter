@@ -1,1 +1,1383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VinzxXiterStore</title>
 
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: #0b0606;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: 70px;
+            padding-bottom: 60px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c0392b;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e74c3c;
+        }
+
+        /* ===== 3D BG EFFECT ===== */
+        .bg-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(180, 20, 20, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(200, 30, 30, 0.10) 0%, transparent 60%),
+                linear-gradient(145deg, #0b0606 0%, #1a0808 100%);
+            z-index: -2;
+        }
+
+        .bg-3d::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20% 30%, rgba(255, 70, 70, 0.3), transparent),
+                radial-gradient(2px 2px at 40% 70%, rgba(255, 50, 50, 0.2), transparent),
+                radial-gradient(2px 2px at 60% 20%, rgba(255, 80, 80, 0.25), transparent),
+                radial-gradient(2px 2px at 80% 80%, rgba(255, 40, 40, 0.2), transparent),
+                radial-gradient(2px 2px at 10% 90%, rgba(255, 60, 60, 0.15), transparent);
+            background-size: 200px 200px;
+            z-index: -1;
+            animation: sparkle 8s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(30px, 20px) scale(1.05);
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        /* ===== FLOATING 3D SHAPES ===== */
+        .float-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatShape 12s ease-in-out infinite alternate;
+        }
+        .float-shape:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: #e74c3c;
+            top: -100px;
+            left: -100px;
+            animation-duration: 14s;
+        }
+        .float-shape:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: #c0392b;
+            bottom: -150px;
+            right: -150px;
+            animation-duration: 18s;
+            animation-delay: 2s;
+        }
+        .float-shape:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: #e74c3c;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 16s;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatShape {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            33% {
+                transform: translate(40px, -30px) scale(1.1) rotate(10deg);
+            }
+            66% {
+                transform: translate(-20px, 40px) scale(0.9) rotate(-5deg);
+            }
+            100% {
+                transform: translate(30px, 20px) scale(1.05) rotate(8deg);
+            }
+        }
+
+        /* ============================================================
+                   NAVBAR STICKY 3D DENGAN MENU WELCOME & PRODUK
+                   ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            background: rgba(10, 5, 5, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 60, 60, 0.15);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar .logo-nav {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff2d2d, #e74c3c, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .navbar .logo-nav i {
+            -webkit-text-fill-color: initial;
+            color: #ff4d4d;
+            font-size: 1.4rem;
+            filter: drop-shadow(0 0 10px rgba(255, 50, 50, 0.3));
+        }
+
+        .navbar .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .navbar .nav-menu a {
+            color: #ffb3b3;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 4px 0;
+        }
+        .navbar .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4d4d, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+        .navbar .nav-menu a:hover {
+            color: #fff;
+        }
+        .navbar .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .nav-menu .menu-welcome {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        .navbar .nav-menu .menu-welcome i {
+            color: #ff4d4d;
+            margin-right: 4px;
+        }
+        .navbar .nav-menu .menu-produk {
+            color: #ff9999;
+            font-weight: 600;
+        }
+        .navbar .nav-menu .menu-produk i {
+            color: #ff4d4d;
+            margin-right: 4px;
+        }
+
+        .navbar .nav-menu .wa-nav {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff !important;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+            transition: all 0.3s ease;
+        }
+        .navbar .nav-menu .wa-nav:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 35px rgba(37, 211, 102, 0.4);
+        }
+        .navbar .nav-menu .wa-nav::after {
+            display: none;
+        }
+
+        /* ============================================================
+                   SECTION WELCOME (HERO) — TERPISAH
+                   ============================================================ */
+        .section-welcome {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px 60px;
+            position: relative;
+            perspective: 1000px;
+            border-bottom: 2px solid rgba(255, 60, 60, 0.08);
+            scroll-margin-top: 80px;
+        }
+
+        .section-welcome .welcome-content {
+            animation: heroFloat 6s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes heroFloat {
+            0% {
+                transform: translateY(0px) rotateX(1deg) rotateY(-1deg);
+            }
+            100% {
+                transform: translateY(-20px) rotateX(-1deg) rotateY(1deg);
+            }
+        }
+
+        .section-welcome .welcome-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff2d2d, #ff6b6b, #ff2d2d);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neonGlow 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 40px rgba(255, 50, 50, 0.2));
+        }
+
+        .section-welcome .welcome-sub {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #ff9999;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .section-welcome .welcome-emoji {
+            font-size: 4rem;
+            animation: emojiBounce 2.5s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 0 30px rgba(255, 200, 100, 0.2));
+            margin: 8px 0;
+        }
+
+        @keyframes emojiBounce {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(6deg);
+            }
+        }
+
+        .section-welcome .welcome-desc {
+            font-size: 1.1rem;
+            color: #ffb3b3;
+            max-width: 700px;
+            margin: 0 auto 25px;
+            line-height: 1.8;
+            background: rgba(255, 50, 50, 0.05);
+            padding: 12px 32px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 60, 60, 0.08);
+            backdrop-filter: blur(4px);
+        }
+
+        .section-welcome .btn-explore {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            padding: 16px 48px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 40px rgba(231, 76, 60, 0.3);
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .section-welcome .btn-explore:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 14px 60px rgba(231, 76, 60, 0.5);
+            background: linear-gradient(135deg, #ff4d4d, #e74c3c);
+        }
+
+        /* ============================================================
+                   SECTION PRODUK — TERPISAH
+                   ============================================================ */
+        .section-produk {
+            padding: 30px 20px 10px;
+            scroll-margin-top: 80px;
+        }
+
+        .section-produk .product-header {
+            text-align: center;
+            padding: 20px 20px 30px;
+            position: relative;
+        }
+
+        .section-produk .product-header .logo {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ff2d2d, #e74c3c, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(231, 76, 60, 0.3);
+            transform: perspective(500px) rotateX(2deg);
+            display: inline-block;
+        }
+
+        .section-produk .product-header .sub {
+            font-size: 1rem;
+            color: #ff6b6b;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .section-produk .product-header .tagline {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #ff9999;
+            background: rgba(255, 50, 50, 0.08);
+            display: inline-block;
+            padding: 4px 24px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 50, 50, 0.12);
+            backdrop-filter: blur(4px);
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 50px 0 30px;
+            position: relative;
+            color: #ff4d4d;
+            letter-spacing: 1px;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e74c3c, transparent);
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+
+        .section-title i {
+            margin-right: 12px;
+            color: #ff6b6b;
+        }
+
+        /* ===== 3D CARD GRID ===== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 35px 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px 20px;
+        }
+
+        /* ===== 3D CARD ===== */
+        .card-3d {
+            perspective: 1200px;
+            height: 100%;
+            cursor: default;
+        }
+
+        .card-3d-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .card-3d:hover .card-3d-inner {
+            transform: rotateY(4deg) rotateX(3deg) scale(1.02);
+        }
+
+        .card-3d-front,
+        .card-3d-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            backface-visibility: hidden;
+            border-radius: 24px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid rgba(255, 60, 60, 0.12);
+            box-shadow: inset 0 0 80px rgba(180, 20, 20, 0.06);
+        }
+
+        .card-3d-front {
+            background: linear-gradient(160deg, rgba(30, 10, 10, 0.95), rgba(15, 5, 5, 0.98));
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+
+        .card-3d-back {
+            background: linear-gradient(160deg, rgba(40, 10, 10, 0.96), rgba(20, 5, 5, 0.98));
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transform: rotateY(180deg);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-color: rgba(255, 80, 80, 0.2);
+        }
+
+        .card-3d-back .back-icon {
+            font-size: 2.6rem;
+            color: #ff4d4d;
+            margin-bottom: 12px;
+        }
+        .card-3d-back .back-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+        .card-3d-back .back-desc {
+            font-size: 0.85rem;
+            color: #ff9999;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+
+        /* ===== CARD CONTENT ===== */
+        .card-badge {
+            display: inline-block;
+            background: rgba(255, 50, 50, 0.12);
+            color: #ff6b6b;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 50, 50, 0.15);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .card-title .highlight {
+            color: #ff4d4d;
+        }
+
+        .card-sub {
+            font-size: 0.8rem;
+            color: #ff9999;
+            margin-bottom: 14px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        .card-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ff2d2d;
+            text-shadow: 0 0 30px rgba(255, 30, 30, 0.15);
+            margin: 6px 0 12px;
+        }
+        .card-price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #ff9999;
+            margin-left: 4px;
+        }
+
+        .card-detail {
+            font-size: 0.85rem;
+            color: #e0b0b0;
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+        .card-detail i {
+            color: #ff4d4d;
+            width: 20px;
+            margin-right: 4px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 60, 60, 0.08);
+        }
+
+        .card-footer .btn-order {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.25);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+        .card-footer .btn-order:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 35px rgba(231, 76, 60, 0.4);
+            background: linear-gradient(135deg, #ff4d4d, #e74c3c);
+        }
+        .card-footer .btn-order i {
+            font-size: 0.8rem;
+        }
+
+        .card-footer .badge-3d {
+            font-size: 0.65rem;
+            color: #ff6b6b;
+            background: rgba(255, 50, 50, 0.08);
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 50, 50, 0.08);
+        }
+
+        /* ===== SPECIAL CARD : DRIP CLIENT ===== */
+        .card-drip .card-3d-front {
+            background: linear-gradient(160deg, rgba(40, 8, 8, 0.97), rgba(18, 4, 4, 0.98));
+            border-color: rgba(255, 70, 70, 0.2);
+        }
+        .card-drip .card-price {
+            color: #ff5555;
+        }
+
+        /* ===== WHATSAPP SECTION ===== */
+        .wa-section {
+            max-width: 900px;
+            margin: 50px auto 20px;
+            padding: 0 25px;
+        }
+
+        .wa-card {
+            background: linear-gradient(145deg, rgba(30, 10, 10, 0.85), rgba(15, 5, 5, 0.92));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
+            padding: 32px 35px;
+            border: 1px solid rgba(255, 60, 60, 0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            transform: perspective(800px) rotateX(1deg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .wa-card:hover {
+            transform: perspective(800px) rotateX(0deg) scale(1.01);
+            box-shadow: 0 25px 70px rgba(231, 76, 60, 0.15);
+        }
+
+        .wa-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .wa-left .wa-icon {
+            font-size: 2.8rem;
+            color: #25D366;
+            filter: drop-shadow(0 0 20px rgba(37, 211, 102, 0.2));
+        }
+        .wa-left .wa-text h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .wa-left .wa-text p {
+            font-size: 0.85rem;
+            color: #ff9999;
+            margin-top: 2px;
+        }
+
+        .wa-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .wa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+        .wa-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 45px rgba(37, 211, 102, 0.35);
+        }
+        .wa-btn i {
+            font-size: 1.2rem;
+        }
+
+        .wa-btn-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255, 60, 60, 0.25);
+            color: #ff6b6b;
+            box-shadow: none;
+        }
+        .wa-btn-outline:hover {
+            background: rgba(255, 50, 50, 0.06);
+            border-color: #ff4d4d;
+            box-shadow: 0 6px 30px rgba(255, 50, 50, 0.1);
+            color: #ff4d4d;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 40px 20px 20px;
+            font-size: 0.8rem;
+            color: #994d4d;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(255, 60, 60, 0.06);
+            margin-top: 40px;
+        }
+        .footer strong {
+            color: #ff4d4d;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 18px;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .navbar .nav-menu {
+                gap: 14px;
+                justify-content: center;
+            }
+            .navbar .nav-menu a {
+                font-size: 0.8rem;
+            }
+            .section-welcome .welcome-title {
+                font-size: 2.8rem;
+            }
+            .section-welcome .welcome-sub {
+                font-size: 1.3rem;
+                letter-spacing: 4px;
+            }
+            .section-welcome .welcome-emoji {
+                font-size: 3rem;
+            }
+            .section-welcome .welcome-desc {
+                font-size: 0.95rem;
+                padding: 10px 20px;
+            }
+            .section-welcome .btn-explore {
+                padding: 14px 32px;
+                font-size: 1rem;
+            }
+            .section-produk .product-header .logo {
+                font-size: 2rem;
+            }
+            .section-produk .product-header .sub {
+                font-size: 0.75rem;
+                letter-spacing: 3px;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px 15px;
+                padding: 0 15px;
+            }
+            .card-3d-inner {
+                min-height: 240px;
+            }
+            .card-3d-front,
+            .card-3d-back {
+                min-height: 240px;
+                padding: 18px 16px;
+            }
+            .card-title {
+                font-size: 1.05rem;
+            }
+            .card-price {
+                font-size: 1.4rem;
+            }
+            .card-footer .btn-order {
+                padding: 6px 14px;
+                font-size: 0.7rem;
+            }
+            .wa-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 24px 20px;
+            }
+            .wa-right {
+                justify-content: center;
+            }
+            .wa-btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                max-width: 380px;
+                margin: 0 auto;
+            }
+            .section-produk .product-header .logo {
+                font-size: 1.6rem;
+            }
+            .wa-left {
+                flex-direction: column;
+                text-align: center;
+            }
+            .wa-left .wa-icon {
+                font-size: 2.2rem;
+            }
+            .section-welcome .welcome-title {
+                font-size: 2.2rem;
+            }
+            .section-welcome .welcome-sub {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+            .section-welcome .welcome-emoji {
+                font-size: 2.4rem;
+            }
+            .navbar .logo-nav {
+                font-size: 1.4rem;
+            }
+            .navbar .nav-menu a {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 3D BACKGROUND ===== -->
+    <div class="bg-3d"></div>
+    <div class="float-shape"></div>
+    <div class="float-shape"></div>
+    <div class="float-shape"></div>
+
+    <!-- ============================================================
+    NAVBAR 3D STICKY — MENU WELCOME & PRODUK
+    ============================================================ -->
+    <nav class="navbar">
+        <div class="logo-nav">
+            <i class="fas fa-cube"></i> VINZX
+        </div>
+        <div class="nav-menu">
+            <a href="#welcome" class="menu-welcome">
+                <i class="fas fa-hand-wave"></i> Welcome
+            </a>
+            <a href="#produk" class="menu-produk">
+                <i class="fas fa-box"></i> Produk
+            </a>
+            <a href="https://wa.me/6281343110050" target="_blank" class="wa-nav">
+                <i class="fab fa-whatsapp"></i> Order
+            </a>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    SECTION 1: WELCOME (TERPISAH)
+    ============================================================ -->
+    <section class="section-welcome" id="welcome">
+        <div class="welcome-content">
+            <div class="welcome-sub">⚡ Welcome to Market By ⚡</div>
+            <div class="welcome-title">Vinzx Xiter</div>
+            <div class="welcome-emoji">🤖</div>
+            <div class="welcome-desc">
+                <i class="fas fa-cube" style="margin-right:10px;color:#ff4d4d;"></i>
+                 Interactive Product Store — Koleksi File &amp; Panel Terlengkap
+            </div>
+            <a href="#produk" class="btn-explore">
+                <i class="fas fa-store"></i> Lihat Produk
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SECTION 2: PRODUK (TERPISAH)
+    ============================================================ -->
+    <section class="section-produk" id="produk">
+
+        <!-- PRODUK HEADER -->
+        <div class="product-header">
+            <div class="logo">VINZX XITER</div>
+            <div class="sub">⚡ PRODUK VINZX STORE⚡</div>
+            <div class="tagline">
+                <i class="fas fa-cube" style="margin-right:8px;"></i>
+                Koleksi File &amp; Panel Terlengkap
+            </div>
+        </div>
+
+        <!-- ===== SECTION : DRIP CLIENT ===== -->
+        <h2 class="section-title"><i class="fas fa-gem"></i> 💎 DRIP CLIENT</h2>
+        <div class="card-grid">
+            <!-- Day 1 -->
+            <div class="card-3d card-drip" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-bolt"></i> DRIP</span>
+                        <div class="card-title">Day <span class="highlight">1</span></div>
+                        <div class="card-sub">Akses 1 Hari</div>
+                        <div class="card-price">Rp 15.000 <small>key</small></div>
+                        <div class="card-detail"><i class="fas fa-check-circle"></i> Full fitur drip</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Drip%20Day%201" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-clock"></i></div>
+                        <div class="back-title">Day 1</div>
+                        <div class="back-desc">Rp 15.000 • 1 Hari Akses</div>
+                        <div style="margin-top:10px;font-size:0.7rem;color:#ff6666;">Klik Order via WhatsApp</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="card-3d card-drip" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-bolt"></i> DRIP</span>
+                        <div class="card-title">Day <span class="highlight">3</span></div>
+                        <div class="card-sub">Akses 3 Hari</div>
+                        <div class="card-price">Rp 25.000 <small>key</small></div>
+                        <div class="card-detail"><i class="fas fa-check-circle"></i> Full fitur drip</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Drip%20Day%203" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-clock"></i></div>
+                        <div class="back-title">Day 3</div>
+                        <div class="back-desc">Rp 25.000 • 3 Hari Akses</div>
+                        <div style="margin-top:10px;font-size:0.7rem;color:#ff6666;">Klik Order via WhatsApp</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="card-3d card-drip" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-bolt"></i> DRIP</span>
+                        <div class="card-title">Day <span class="highlight">7</span></div>
+                        <div class="card-sub">Akses 7 Hari</div>
+                        <div class="card-price">Rp 50.000 <small>key</small></div>
+                        <div class="card-detail"><i class="fas fa-check-circle"></i> Full fitur drip</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Drip%20Day%207" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-clock"></i></div>
+                        <div class="back-title">Day 7</div>
+                        <div class="back-desc">Rp 50.000 • 7 Hari Akses</div>
+                        <div style="margin-top:10px;font-size:0.7rem;color:#ff6666;">Klik Order via WhatsApp</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 15 -->
+            <div class="card-3d card-drip" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-bolt"></i> DRIP</span>
+                        <div class="card-title">Day <span class="highlight">15</span></div>
+                        <div class="card-sub">Akses 15 Hari</div>
+                        <div class="card-price">Rp 90.000 <small>key</small></div>
+                        <div class="card-detail"><i class="fas fa-check-circle"></i> Full fitur drip</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Drip%20Day%2015" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-clock"></i></div>
+                        <div class="back-title">Day 15</div>
+                        <div class="back-desc">Rp 90.000 • 15 Hari Akses</div>
+                        <div style="margin-top:10px;font-size:0.7rem;color:#ff6666;">Klik Order via WhatsApp</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 30 -->
+            <div class="card-3d card-drip" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-bolt"></i> DRIP</span>
+                        <div class="card-title">Day <span class="highlight">30</span></div>
+                        <div class="card-sub">Akses 30 Hari</div>
+                        <div class="card-price">Rp 140.000 <small>key</small></div>
+                        <div class="card-detail"><i class="fas fa-check-circle"></i> Full fitur drip</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Drip%20Day%2030" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-clock"></i></div>
+                        <div class="back-title">Day 30</div>
+                        <div class="back-desc">Rp 140.000 • 30 Hari Akses</div>
+                        <div style="margin-top:10px;font-size:0.7rem;color:#ff6666;">Klik Order via WhatsApp</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION : AIM & DRAG ===== -->
+        <h2 class="section-title"><i class="fas fa-crosshairs"></i> 🎯 AIM &amp; DRAG</h2>
+        <div class="card-grid">
+            <!-- Aim Lock Biasa -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-bullseye"></i> AIM</span>
+                        <div class="card-title">Aim Lock <span class="highlight">Biasa</span></div>
+                        <div class="card-sub">Lock target standar</div>
+                        <div class="card-price">Rp 15.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Aim%20Lock%20Biasa" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-crosshairs"></i></div>
+                        <div class="back-title">Aim Lock Biasa</div>
+                        <div class="back-desc">Rp 15.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aim Lock VIP -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-crown"></i> VIP</span>
+                        <div class="card-title">Aim Lock <span class="highlight">VIP</span></div>
+                        <div class="card-sub">Lock target premium</div>
+                        <div class="card-price">Rp 25.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Aim%20Lock%20VIP" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-crown"></i></div>
+                        <div class="back-title">Aim Lock VIP</div>
+                        <div class="back-desc">Rp 25.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aim Bot -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-robot"></i> BOT</span>
+                        <div class="card-title"><span class="highlight">Aim</span> Bot</div>
+                        <div class="card-sub">Auto aim bot</div>
+                        <div class="card-price">Rp 20.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Aim%20Bot" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-robot"></i></div>
+                        <div class="back-title">Aim Bot</div>
+                        <div class="back-desc">Rp 20.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aim Heat -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-fire"></i> HEAT</span>
+                        <div class="card-title">Aim <span class="highlight">Heat</span></div>
+                        <div class="card-sub">Heat aim lock</div>
+                        <div class="card-price">Rp 15.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Aim%20Heat" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-fire"></i></div>
+                        <div class="back-title">Aim Heat</div>
+                        <div class="back-desc">Rp 15.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drag HS Biasa -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-arrows-alt"></i> DRAG</span>
+                        <div class="card-title">Drag HS <span class="highlight">Biasa</span></div>
+                        <div class="card-sub">Drag headshot standar</div>
+                        <div class="card-price">Rp 15.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Drag%20HS%20Biasa" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-arrows-alt"></i></div>
+                        <div class="back-title">Drag HS Biasa</div>
+                        <div class="back-desc">Rp 15.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drag HS VIP -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-crown"></i> VIP</span>
+                        <div class="card-title">Drag HS <span class="highlight">VIP</span></div>
+                        <div class="card-sub">Drag headshot premium</div>
+                        <div class="card-price">Rp 20.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Drag%20HS%20VIP" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-crown"></i></div>
+                        <div class="back-title">Drag HS VIP</div>
+                        <div class="back-desc">Rp 20.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Easy Drag 50-100% -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-chart-line"></i> EASY</span>
+                        <div class="card-title">Easy Drag <span class="highlight">50-100%</span></div>
+                        <div class="card-sub">Drag persentase variatif</div>
+                        <div class="card-price">Rp 10-25k</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Easy%20Drag" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="back-title">Easy Drag</div>
+                        <div class="back-desc">Rp 10.000 – 25.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION : HEADSHOT & BULLET ===== -->
+        <h2 class="section-title"><i class="fas fa-bullseye"></i> 💥 HEADSHOT &amp; BULLET</h2>
+        <div class="card-grid">
+            <!-- Badan HS Biasa -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-skull"></i> HS</span>
+                        <div class="card-title">Badan HS <span class="highlight">Biasa</span></div>
+                        <div class="card-sub">Headshot badan standar</div>
+                        <div class="card-price">Rp 20.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Badan%20HS%20Biasa" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-skull"></i></div>
+                        <div class="back-title">Badan HS Biasa</div>
+                        <div class="back-desc">Rp 20.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badan HS VIP -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-crown"></i> VIP</span>
+                        <div class="card-title">Badan HS <span class="highlight">VIP</span></div>
+                        <div class="card-sub">Headshot badan premium</div>
+                        <div class="card-price">Rp 30.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Badan%20HS%20VIP" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-crown"></i></div>
+                        <div class="back-title">Badan HS VIP</div>
+                        <div class="back-desc">Rp 30.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Magic Bullet -->
+            <div class="card-3d" data-tilt>
+                <div class="card-3d-inner">
+                    <div class="card-3d-front">
+                        <span class="card-badge"><i class="fas fa-magic"></i> MAGIC</span>
+                        <div class="card-title"><span class="highlight">Magic</span> Bullet</div>
+                        <div class="card-sub">Peluru ajaib</div>
+                        <div class="card-price">Rp 25.000</div>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Magic%20Bullet" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a>
+                            <span class="badge-3d"><i class="fas fa-cube"></i> </span>
+                        </div>
+                    </div>
+                    <div class="card-3d-back">
+                        <div class="back-icon"><i class="fas fa-magic"></i></div>
+                        <div class="back-title">Magic Bullet</div>
+                        <div class="back-desc">Rp 25.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION : ON POINT ACCURACY ===== -->
+        <h2 class="section-title"><i class="fas fa-dot-circle"></i> 🎯 ON POINT ACCURACY</h2>
+        <div class="card-grid">
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge">%</span><div class="card-title"><span class="highlight">50%</span> Accuracy</div><div class="card-sub">Akurasi 50%</div><div class="card-price">Rp 10.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Accuracy%2050%25" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-dot-circle"></i></div><div class="back-title">50%</div><div class="back-desc">Rp 10.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge">%</span><div class="card-title"><span class="highlight">60%</span> Accuracy</div><div class="card-sub">Akurasi 60%</div><div class="card-price">Rp 12.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Accuracy%2060%25" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-dot-circle"></i></div><div class="back-title">60%</div><div class="back-desc">Rp 12.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge">%</span><div class="card-title"><span class="highlight">70%</span> Accuracy</div><div class="card-sub">Akurasi 70%</div><div class="card-price">Rp 15.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Accuracy%2070%25" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-dot-circle"></i></div><div class="back-title">70%</div><div class="back-desc">Rp 15.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge">%</span><div class="card-title"><span class="highlight">80%</span> Accuracy</div><div class="card-sub">Akurasi 80%</div><div class="card-price">Rp 16.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Accuracy%2080%25" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-dot-circle"></i></div><div class="back-title">80%</div><div class="back-desc">Rp 16.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge">%</span><div class="card-title"><span class="highlight">90%</span> Accuracy</div><div class="card-sub">Akurasi 90%</div><div class="card-price">Rp 20.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Accuracy%2090%25" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-dot-circle"></i></div><div class="back-title">90%</div><div class="back-desc">Rp 20.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge">%</span><div class="card-title"><span class="highlight">100%</span> Accuracy</div><div class="card-sub">Akurasi 100%</div><div class="card-price">Rp 25.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Accuracy%20100%25" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-dot-circle"></i></div><div class="back-title">100%</div><div class="back-desc">Rp 25.000</div></div></div></div>
+        </div>
+
+        <!-- ===== SECTION : PANEL ===== -->
+        <h2 class="section-title"><i class="fas fa-sliders-h"></i> ⚙️ PANEL</h2>
+        <div class="card-grid">
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge"><i class="fas fa-cog"></i> PANEL</span><div class="card-title">Zayrex Panel <span class="highlight">Biasa</span></div><div class="card-sub">Panel standar</div><div class="card-price">Rp 80.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Zayrex%20Panel%20Biasa" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-cog"></i></div><div class="back-title">Panel Biasa</div><div class="back-desc">Rp 80.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge"><i class="fas fa-crown"></i> VIP</span><div class="card-title">Zayrex Panel <span class="highlight">VIP</span></div><div class="card-sub">Panel premium</div><div class="card-price">Rp 150.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Zayrex%20Panel%20VIP" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-crown"></i></div><div class="back-title">Panel VIP</div><div class="back-desc">Rp 150.000</div></div></div></div>
+        </div>
+
+        <!-- ===== SECTION : LAINNYA ===== -->
+        <h2 class="section-title"><i class="fas fa-tools"></i> 🛠️ LAINNYA</h2>
+        <div class="card-grid">
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge"><i class="fas fa-star"></i> EXTRA</span><div class="card-title">Glowal <span class="highlight">Gepeng</span></div><div class="card-sub">Glowal gepeng</div><div class="card-price">Rp 10.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Glowal%20Gepeng" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-star"></i></div><div class="back-title">Glowal Gepeng</div><div class="back-desc">Rp 10.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge"><i class="fas fa-star"></i> EXTRA</span><div class="card-title">Konvig <span class="highlight">OPM</span></div><div class="card-sub">Konfigurasi OPM</div><div class="card-price">Rp 10.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Konvig%20OPM" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-star"></i></div><div class="back-title">Konvig OPM</div><div class="back-desc">Rp 10.000</div></div></div></div>
+            <div class="card-3d" data-tilt><div class="card-3d-inner"><div class="card-3d-front"><span class="card-badge"><i class="fas fa-star"></i> EXTRA</span><div class="card-title">Konvig Emot <span class="highlight">Metkit</span></div><div class="card-sub">Konfigurasi Emot Metkit</div><div class="card-price">Rp 10.000</div><div class="card-footer"><a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20Konvig%20Emot%20Metkit" target="_blank" class="btn-order"><i class="fab fa-whatsapp"></i> Order</a><span class="badge-3d"><i class="fas fa-cube"></i> </span></div></div><div class="card-3d-back"><div class="back-icon"><i class="fas fa-star"></i></div><div class="back-title">Konvig Emot Metkit</div><div class="back-desc">Rp 10.000</div></div></div></div>
+        </div>
+
+    </section>
+
+    <!-- ===== WHATSAPP SECTION ===== -->
+    <div class="wa-section" id="kontak">
+        <div class="wa-card">
+            <div class="wa-left">
+                <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
+                <div class="wa-text">
+                    <h3><i class="fas fa-phone-alt" style="color:#ff4d4d;margin-right:6px;"></i> Hubungi Kami</h3>
+                    <p>📍 WhatsApp Official &amp; Channel Resmi</p>
+                </div>
+            </div>
+            <div class="wa-right">
+                <a href="https://wa.me/6281343110050?text=Halo%20saya%20mau%20order%20produk%20di%20VINZX%20XITER%20STORE" target="_blank" class="wa-btn">
+                    <i class="fab fa-whatsapp"></i> +62 813-4311-0050
+                </a>
+                <a href="https://whatsapp.com/channel/0029Vb83gH76GcGN3lG3do0i" target="_blank" class="wa-btn wa-btn-outline">
+                    <i class="fas fa-broadcast"></i> Channel WA
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ===== JAVASCRIPT : 3D TILT EFFECT ===== -->
+    <script>
+        (function() {
+            const cards = document.querySelectorAll('.card-3d[data-tilt]');
+
+            cards.forEach(card => {
+                const inner = card.querySelector('.card-3d-inner');
+
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
+                    if (inner) {
+                        inner.style.transform =
+                            `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                        inner.style.transition = 'transform 0.1s ease-out';
+                    }
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    if (inner) {
+                        inner.style.transform =
+                            'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)';
+                        inner.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+                    }
+                });
+            });
+
+            const waCard = document.querySelector('.wa-card');
+            if (waCard) {
+                waCard.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -3;
+                    const rotateY = ((x - centerX) / centerX) * 3;
+                    this.style.transform =
+                        `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+                    this.style.transition = 'transform 0.1s ease-out';
+                });
+                waCard.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+                    this.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+                });
+            }
+
+            const observerOptions = { threshold: 0.08, rootMargin: '0px 0px -40px 0px' };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.card-3d').forEach((el, i) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(40px) scale(0.96)';
+                el.style.transition = `opacity 0.7s ease ${i * 0.04}s, transform 0.7s ease ${i * 0.04}s`;
+                observer.observe(el);
+            });
+
+            window.addEventListener('load', () => {
+                document.querySelectorAll('.card-3d').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
